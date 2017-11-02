@@ -83,7 +83,7 @@ function wc_weights(v,vertices){
       var ci = compute_s(vertices[(i+n-1)%n],vertices[(i+n)%n],vertices[(i+n+1)%n]);
       var aim1 = compute_s(v,vertices[(i+n)%n],vertices[(i+n-1)%n]);
       var ai = compute_s(v,vertices[(i+n)%n],vertices[(i+n+1)%n]);
-
+      console.log(aim1, ai);
       w[i] = ci /(aim1*ai);
 
     }

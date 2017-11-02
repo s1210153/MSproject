@@ -74,22 +74,40 @@ function dhc(v,vertices){
 
 function dhc_weights(v,vertices){
 
+    var d = [];
     var w = [];
     var n = vertices.length;
+
+    var pt;
+
+    for(var i=0; i<vertices.length; i++){
+
+      pt = new Point2d(vertices[i].x - v.x, vertices[i].y - v.y);
+      d.push(pt);
+
+    }
 
     for(var i=0; i<vertices.length; i++){
 
       //if(a+b < Math.PI){
 
-        var rim1 = length(vertices[(i+n-1)%n].x,vertices[(i+n-1)%n].y);
-        var ri = length(vertices[(i+n)%n].x,vertices[(i+n)%n].y);
-        var rip1 = length(vertices[(i+n+1)%n].x,vertices[(i+n+1)%n].y);
+        //var rim1 = length(vertices[(i+n-1)%n].x,vertices[(i+n-1)%n].y);
+        //var ri = length(vertices[(i+n)%n].x,vertices[(i+n)%n].y);
+        //var rip1 = length(vertices[(i+n+1)%n].x,vertices[(i+n+1)%n].y);
+        var rim1 = length(d[(i+n-1)%n].x,d[(i+n-1)%n].y);
+        var ri = length(d[(i+n)%n].x,d[(i+n)%n].y);
+        var rip1 = length(d[(i+n+1)%n].x,d[(i+n+1)%n].y);
 
         var bi = compute_s(vertices[(i+n-1)%n],v,vertices[(i+n+1)%n]);
         var aim1 = compute_s(v,vertices[(i+n)%n],vertices[(i+n-1)%n]);
         var ai = compute_s(v,vertices[(i+n)%n],vertices[(i+n+1)%n]);
 
         w[i] = ((Math.pow(rip1,2)*aim1)-(Math.pow(ri,2)*bi)+(Math.pow(rim1,2)*ai))/(aim1*ai);
+
+        console.log(rim1, ri, rip1);
+        console.log(bi, aim1, ai);
+        console.log(w[i]);
+
     }
     return w;
 }
